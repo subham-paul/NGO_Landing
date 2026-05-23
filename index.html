@@ -1,0 +1,3161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FeedNation Foundation — No One Goes Hungry</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- AOS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        :root {
+            --orange: #F2601A;
+            --orange-dark: #C44A0C;
+            --orange-light: #FF8C4B;
+            --orange-pale: #FFF0E6;
+            --cream: #FDF6EE;
+            --brown: #3D1C0A;
+            --brown-mid: #7A3A1A;
+            --text: #2A1206;
+            --text-soft: #6B4030;
+            --white: #FFFFFF;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --shadow-warm: 0 20px 60px rgba(242, 96, 26, 0.18);
+            --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--orange-pale);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange);
+            border-radius: 10px;
+        }
+
+        /* ── SELECTION ── */
+        ::selection {
+            background: var(--orange);
+            color: #fff;
+        }
+
+        /* ───────────────────────────────────────
+       NAVBAR
+    ─────────────────────────────────────── */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 0;
+            transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+        }
+
+        #navbar.scrolled {
+            background: rgba(253, 246, 238, 0.96);
+            backdrop-filter: blur(16px);
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(242, 96, 26, 0.12);
+        }
+
+        .navbar-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.9rem;
+            letter-spacing: 1px;
+            color: var(--white) !important;
+            transition: color var(--transition);
+        }
+
+        #navbar.scrolled .navbar-brand {
+            color: var(--orange) !important;
+        }
+
+        .nav-link {
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.88) !important;
+            margin: 0 6px;
+            position: relative;
+            transition: color var(--transition);
+        }
+
+        #navbar.scrolled .nav-link {
+            color: var(--brown) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-donate-nav {
+            background: var(--orange);
+            color: #fff !important;
+            border-radius: 50px;
+            padding: 8px 22px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+        }
+
+        .btn-donate-nav:hover {
+            background: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(242, 96, 26, 0.4);
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        #navbar.scrolled .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(61,28,10,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* ───────────────────────────────────────
+       HERO
+    ─────────────────────────────────────── */
+        #hero {
+            height: 100vh;
+            min-height: 680px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.4s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        /* Unsplash food-relief images */
+        .hero-slide:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&q=80');
+        }
+
+        .hero-slide:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=1600&q=80');
+        }
+
+        .hero-slide:nth-child(3) {
+            background-image: url('./img/ran11.jpg');
+        }
+
+        .hero-slide:nth-child(4) {
+            background-image: url('./img/FreeDailyMeals-compressed.jpg');
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(61, 28, 10, 0.82) 0%, rgba(196, 74, 12, 0.55) 50%, rgba(61, 28, 10, 0.72) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            background: var(--orange);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: #fff;
+            margin-bottom: 22px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--orange-light);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.82);
+            max-width: 1040px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        .btn-hero-primary {
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 38px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hero-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-hero-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--orange-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(242, 96, 26, 0.5);
+            color: #fff;
+        }
+
+        .btn-hero-secondary {
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            color: #fff;
+            border-radius: 50px;
+            padding: 14px 36px;
+            font-weight: 600;
+            font-size: 1rem;
+            background: transparent;
+            transition: all var(--transition);
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Hero dots */
+        .hero-dots {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            gap: 10px;
+        }
+
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hero-dot.active {
+            background: var(--orange);
+            transform: scale(1.3);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 36px;
+            right: 48px;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scaleY(0.7);
+            }
+        }
+
+        /* Floating stat pill */
+        .hero-stats-row {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-stat-item {
+            padding: 18px 28px;
+            border-right: 1px solid rgba(255, 255, 255, 0.12);
+            text-align: center;
+        }
+
+        .hero-stat-item:last-child {
+            border-right: none;
+        }
+
+        .hero-stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--orange-light);
+            line-height: 1;
+        }
+
+        .hero-stat-lbl {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        /* ───────────────────────────────────────
+       SECTION COMMONS
+    ─────────────────────────────────────── */
+        section {
+            padding: 96px 0;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--orange-pale);
+            color: var(--orange-dark);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            color: var(--brown);
+        }
+
+        .section-title .accent {
+            color: var(--orange);
+        }
+
+        .section-lead {
+            font-size: 1.05rem;
+            color: var(--text-soft);
+            line-height: 1.8;
+            max-width: 560px;
+        }
+
+        .divider-wave {
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange), var(--orange-light));
+            border-radius: 2px;
+            margin: 18px 0;
+        }
+
+        /* ───────────────────────────────────────
+       MARQUEE TICKER
+    ─────────────────────────────────────── */
+        .marquee-strip {
+            background: var(--orange);
+            padding: 12px 0;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            animation: marqueeScroll 28s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 36px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .social-marquee {
+            overflow: hidden;
+            padding: 40px 0;
+            background: var(--brown);
+        }
+
+        .social-marquee-track {
+            display: flex;
+            gap: 30px;
+            animation: socialMarqueeScroll 50s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes socialMarqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .social-post-card {
+            width: 320px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .social-post-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .post-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .post-user-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .post-user-info {
+            line-height: 1.2;
+        }
+
+        .post-user-name {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--brown);
+        }
+
+        .post-platform {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 18px;
+        }
+
+        .post-caption {
+            font-size: 0.88rem;
+            color: var(--text-soft);
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        /* ───────────────────────────────────────
+       TEAM SECTION
+    ─────────────────────────────────────── */
+        #team {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 20px;
+            text-align: center;
+            transition: all var(--transition);
+            box-shadow: 0 10px 30px rgba(61, 28, 10, 0.05);
+            height: 100%;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            background: #fff;
+            box-shadow: var(--shadow-warm);
+            border-color: var(--orange-light);
+        }
+
+        .team-img-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            position: relative;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+        }
+
+        .team-name {
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 4px;
+            font-size: 1.1rem;
+        }
+
+        .team-role {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--orange);
+            margin-bottom: 14px;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .team-social a {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--orange-pale);
+            color: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .team-social a:hover {
+            background: var(--orange);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .marquee-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ───────────────────────────────────────
+       ABOUT
+    ─────────────────────────────────────── */
+        #about {
+            background: var(--cream);
+        }
+
+        .about-img-stack {
+            position: relative;
+            padding-bottom: 40px;
+            padding-right: 40px;
+        }
+
+        .about-img-main {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: var(--shadow-warm);
+            object-fit: cover;
+            height: 480px;
+            transition: transform var(--transition);
+        }
+
+        .about-img-main:hover {
+            transform: scale(1.02);
+        }
+
+        .about-img-float {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow-warm);
+            transition: transform var(--transition);
+        }
+
+        .about-img-float:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .about-badge {
+            position: absolute;
+            top: 28px;
+            left: -18px;
+            background: var(--orange);
+            color: #fff;
+            border-radius: 16px;
+            padding: 14px 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(242, 96, 26, 0.35);
+        }
+
+        .about-badge-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .about-badge-txt {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(242, 96, 26, 0.1);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--orange-pale);
+            color: var(--orange);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            transition: all var(--transition);
+        }
+
+        .feature-item:hover .feature-icon {
+            background: var(--orange);
+            color: #fff;
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* ───────────────────────────────────────
+       PROGRAMS
+    ─────────────────────────────────────── */
+        #programs {
+            background: var(--brown);
+        }
+
+        #programs .section-title {
+            color: #fff;
+        }
+
+        #programs .section-lead {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        #programs .section-tag {
+            background: rgba(242, 96, 26, 0.2);
+            color: var(--orange-light);
+        }
+
+        .program-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all var(--transition);
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border-color: var(--orange);
+        }
+
+        .program-card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform var(--transition);
+        }
+
+        .program-card:hover .program-card-img {
+            transform: scale(1.07);
+        }
+
+        .program-card-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .program-tag-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--orange);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .program-card-body {
+            padding: 24px;
+        }
+
+        .program-card-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--orange);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 16px;
+            transition: all var(--transition);
+        }
+
+        .program-card:hover .program-card-icon {
+            transform: rotate(-8deg) scale(1.1);
+        }
+
+        .program-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .program-card-text {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .program-card-link {
+            color: var(--orange-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            transition: gap var(--transition);
+        }
+
+        .program-card-link:hover {
+            gap: 12px;
+            color: var(--orange-light);
+        }
+
+        /* ───────────────────────────────────────
+       IMPACT STATS
+    ─────────────────────────────────────── */
+        #impact {
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #impact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-card-label {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.78);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-card-icon {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 14px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ───────────────────────────────────────
+       DONATE SECTION
+    ─────────────────────────────────────── */
+        #donate {
+            background: var(--orange-pale);
+        }
+
+        .donate-card {
+            background: #fff;
+            border-radius: 28px;
+            padding: 50px 44px;
+            box-shadow: var(--shadow-warm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-card::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: var(--orange-pale);
+            border-radius: 50%;
+        }
+
+        .amount-btn {
+            border: 2px solid var(--orange);
+            color: var(--orange);
+            background: transparent;
+            border-radius: 50px;
+            padding: 12px 26px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+            width: 100%;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.active {
+            background: var(--orange);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(242, 96, 26, 0.35);
+        }
+
+        .donate-input {
+            border: 2px solid rgba(242, 96, 26, 0.2);
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            transition: border-color var(--transition);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .donate-input:focus {
+            border-color: var(--orange);
+        }
+
+        .btn-donate-main {
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 18px 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all var(--transition);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-donate-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(242, 96, 26, 0.45);
+        }
+
+        .donate-trust {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .donate-story {
+            background: linear-gradient(160deg, var(--brown) 0%, var(--brown-mid) 100%);
+            border-radius: 28px;
+            padding: 50px 44px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-story::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 14rem;
+            color: rgba(255, 255, 255, 0.04);
+            line-height: 1;
+        }
+
+        .story-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .story-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .story-name {
+            color: var(--orange-light);
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .story-role {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.83rem;
+        }
+
+        .meals-counter {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .meals-counter-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--orange-light);
+            line-height: 1;
+        }
+
+        .meals-counter-txt {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        /* ───────────────────────────────────────
+       TESTIMONIALS
+    ─────────────────────────────────────── */
+        #testimonials {
+            background: var(--cream);
+        }
+
+        .testi-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            box-shadow: 0 8px 40px rgba(61, 28, 10, 0.08);
+            transition: all var(--transition);
+            height: 100%;
+            position: relative;
+        }
+
+        .testi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-warm);
+        }
+
+        .testi-card::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: var(--orange-pale);
+            line-height: 1;
+        }
+
+        .testi-stars {
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .testi-text {
+            font-size: 0.95rem;
+            color: var(--text-soft);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .testi-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--orange-pale);
+        }
+
+        .testi-name {
+            font-weight: 700;
+            color: var(--brown);
+            font-size: 0.95rem;
+        }
+
+        .testi-role {
+            font-size: 0.78rem;
+            color: var(--text-soft);
+        }
+
+        /* ───────────────────────────────────────
+       GALLERY
+    ─────────────────────────────────────── */
+        #gallery {
+            background: var(--brown);
+            padding-bottom: 80px;
+        }
+
+        #gallery .section-title {
+            color: #fff;
+        }
+
+        #gallery .section-tag {
+            background: rgba(242, 96, 26, 0.2);
+            color: var(--orange-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 12px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 2;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 200px;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(61, 28, 10, 0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 18px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        /* ───────────────────────────────────────
+       VOLUNTEER
+    ─────────────────────────────────────── */
+        #volunteer {
+            background: var(--orange-pale);
+        }
+
+        .volunteer-card {
+            background: #fff;
+            border-radius: 22px;
+            padding: 36px 28px;
+            text-align: center;
+            box-shadow: 0 8px 36px rgba(61, 28, 10, 0.07);
+            transition: all var(--transition);
+            border-bottom: 4px solid transparent;
+        }
+
+        .volunteer-card:hover {
+            transform: translateY(-8px);
+            border-bottom-color: var(--orange);
+            box-shadow: var(--shadow-warm);
+        }
+
+        .volunteer-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--orange-pale);
+            color: var(--orange);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            transition: all var(--transition);
+        }
+
+        .volunteer-card:hover .volunteer-icon {
+            background: var(--orange);
+            color: #fff;
+            transform: scale(1.1) rotate(8deg);
+        }
+
+        .volunteer-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--brown);
+            margin-bottom: 10px;
+        }
+
+        .volunteer-text {
+            font-size: 0.88rem;
+            color: var(--text-soft);
+            line-height: 1.7;
+        }
+
+        /* ───────────────────────────────────────
+       PARTNERS
+    ─────────────────────────────────────── */
+        #partners {
+            background: #fff;
+            padding: 60px 0;
+            overflow: hidden;
+        }
+
+        .partners-track {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            animation: partnersScroll 40s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes partnersScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partner-logo {
+            height: 44px;
+            opacity: 0.38;
+            filter: grayscale(100%);
+            transition: all var(--transition);
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .partner-logo:hover {
+            opacity: 1;
+            filter: none;
+        }
+
+        /* ───────────────────────────────────────
+       NEWSLETTER
+    ─────────────────────────────────────── */
+        #newsletter {
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            padding: 80px 0;
+        }
+
+        .newsletter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-sub {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 28px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 16px 22px;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .newsletter-btn {
+            background: var(--brown);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        /* ───────────────────────────────────────
+       FOOTER
+    ─────────────────────────────────────── */
+        footer {
+            background: var(--brown);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 80px 0 30px;
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            line-height: 1.8;
+            max-width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-right: 8px;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 30px;
+            height: 2px;
+            background: var(--orange);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--orange-light);
+            padding-left: 5px;
+        }
+
+        .footer-divider {
+            border-color: rgba(255, 255, 255, 0.08);
+            margin: 60px 0 30px;
+        }
+
+        .footer-bottom {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--orange-light);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 18px;
+        }
+
+        .footer-contact-item i {
+            color: var(--orange);
+            font-size: 1.1rem;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        /* ───────────────────────────────────────
+       BACK TO TOP
+    ─────────────────────────────────────── */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--transition);
+            box-shadow: 0 8px 24px rgba(242, 96, 26, 0.4);
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-4px);
+            background: var(--orange-dark);
+        }
+
+        /* ───────────────────────────────────────
+       UTILITIES
+    ─────────────────────────────────────── */
+        .text-orange {
+            color: var(--orange) !important;
+        }
+
+        .bg-orange {
+            background-color: var(--orange) !important;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 991px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+            }
+
+            .gallery-item:nth-child(6) {
+                grid-column: span 1;
+            }
+
+            .about-badge {
+                left: 10px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        @media (max-width: 767px) {
+            section {
+                padding: 64px 0;
+            }
+
+            .donate-card,
+            .donate-story {
+                padding: 32px 24px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input,
+            .newsletter-btn {
+                width: 100%;
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-stat-item {
+                padding: 12px 14px;
+            }
+
+            .hero-stat-num {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+    <nav id="navbar" class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                🌾 FeedNation
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Volunteer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#volunteer">Join Our Team</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="nav-link btn-donate-nav" href="#donate">Donate Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+    <section id="hero">
+        <div class="hero-slides">
+            <div class="hero-slide active"></div>
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+            <div class="hero-slide"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content container">
+            <div class="row">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="900">
+                    <span class="hero-eyebrow">🌍 Together We Feed The World</span>
+                    <h1 class="hero-title">
+                        No Child Should<br />Sleep <em>Hungry</em><br />Tonight
+                    </h1>
+                    <p class="hero-subtitle">
+                        FeedNation Foundation fights hunger through free meal programs, community kitchens, and food
+                        donation drives — reaching the most vulnerable every single day.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#donate" class="btn-hero-primary">
+                            <i class="bi bi-heart-fill me-2"></i>Donate a Meal
+                        </a>
+                        <a href="#programs" class="btn-hero-secondary">
+                            Our Programs <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="hero-dots">
+            <span class="hero-dot active" data-index="0"></span>
+            <span class="hero-dot" data-index="1"></span>
+            <span class="hero-dot" data-index="2"></span>
+            <span class="hero-dot" data-index="3"></span>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-indicator-line"></div>
+            <span>Scroll</span>
+        </div>
+
+        <!-- Bottom stat strip -->
+        <div class="hero-stats-row">
+            <div class="container">
+                <div class="row g-0">
+                    <div class="col-6 col-md-3 hero-stat-item">
+                        <div class="hero-stat-num">12M+</div>
+                        <div class="hero-stat-lbl">Meals Served</div>
+                    </div>
+                    <div class="col-6 col-md-3 hero-stat-item">
+                        <div class="hero-stat-num">340+</div>
+                        <div class="hero-stat-lbl">Community Kitchens</div>
+                    </div>
+                    <div class="col-6 col-md-3 hero-stat-item">
+                        <div class="hero-stat-num">82</div>
+                        <div class="hero-stat-lbl">Cities Reached</div>
+                    </div>
+                    <div class="col-6 col-md-3 hero-stat-item">
+                        <div class="hero-stat-num">28K+</div>
+                        <div class="hero-stat-lbl">Volunteers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ MARQUEE ═══════════════════════════════ -->
+    <div class="marquee-strip">
+        <div class="marquee-track" id="marqueeTrack">
+            <span class="marquee-item"><span class="marquee-dot"></span>Free Meals Every Day</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Food Donation Drives</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Community Kitchens</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Hunger Relief Campaigns</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Zero Food Waste</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Feed The Future</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Join the Movement</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Free Meals Every Day</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Food Donation Drives</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Community Kitchens</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Hunger Relief Campaigns</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Zero Food Waste</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Feed The Future</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Join the Movement</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
+    <section id="about">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right" data-aos-duration="900">
+                    <div class="about-img-stack">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80"
+                            class="about-img-main" alt="Volunteers serving food" />
+                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&q=80"
+                            class="about-img-float" alt="Community kitchen" />
+                        <div class="about-badge">
+                            <div class="about-badge-num">12+</div>
+                            <div class="about-badge-txt">Years of<br />Service</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+                    <span class="section-tag">About FeedNation</span>
+                    <h2 class="section-title mt-1">
+                        Fighting Hunger,<br />One Meal at a <span class="accent">Time</span>
+                    </h2>
+                    <div class="divider-wave"></div>
+                    <p class="section-lead mb-4">
+                        Founded in 2012, FeedNation Foundation has been on the front lines of the hunger crisis —
+                        building bridges between abundance and need. We believe every person deserves the dignity of a
+                        warm, nourishing meal.
+                    </p>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
+                        <div>
+                            <h5 class="fw-700 mb-1" style="font-weight:700;color:var(--brown)">Community-Centered
+                                Approach</h5>
+                            <p class="mb-0 text-muted small">We partner directly with local communities, understanding
+                                their unique needs and building sustainable food systems from within.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="280">
+                        <div class="feature-icon"><i class="bi bi-house-heart-fill"></i></div>
+                        <div>
+                            <h5 class="fw-700 mb-1" style="font-weight:700;color:var(--brown)">340+ Community Kitchens
+                            </h5>
+                            <p class="mb-0 text-muted small">Our kitchens are more than places to eat — they're centers
+                                of warmth, dignity, and hope for thousands daily.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="360">
+                        <div class="feature-icon"><i class="bi bi-globe2"></i></div>
+                        <div>
+                            <h5 class="fw-700 mb-1" style="font-weight:700;color:var(--brown)">National Reach, Local
+                                Heart</h5>
+                            <p class="mb-0 text-muted small">Operating in 82 cities across the country, every program is
+                                shaped by local volunteers who know their neighbors best.</p>
+                        </div>
+                    </div>
+                    <div class="mt-4" data-aos="fade-up" data-aos-delay="440">
+                        <a href="#programs"
+                            class="btn-hero-primary text-decoration-none d-inline-flex align-items-center gap-2">
+                            Explore Our Programs <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ PROGRAMS ═══════════════════════════════ -->
+    <section id="programs">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">What We Do</span>
+                <h2 class="section-title text-white mt-1">Our Hunger Relief <span class="accent">Programs</span></h2>
+                <p class="section-lead text-white-50 mx-auto mt-3">
+                    Every program is designed to address hunger at its root — providing immediate relief and long-term
+                    resilience.
+                </p>
+            </div>
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/FreeDailyMeals-compressed.jpg"
+                                class="program-card-img" alt="Free Meals" />
+                            <span class="program-tag-badge">Daily</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                            <h3 class="program-card-title">Free Daily Meals</h3>
+                            <p class="program-card-text">Hot, nutritious meals served every day to families, the
+                                elderly, and children in underserved neighborhoods.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/foodDonation-compressed.jpg"
+                                class="program-card-img" alt="Food Drives" />
+                            <span class="program-tag-badge">Monthly</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-box-seam-fill"></i></div>
+                            <h3 class="program-card-title">Food Donation Drives</h3>
+                            <p class="program-card-text">Organized collection events that gather thousands of kilograms
+                                of non-perishable food from generous donors across cities.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/CommunityKitchens-compressed.jpg"
+                                class="program-card-img" alt="Community Kitchen" />
+                            <span class="program-tag-badge">Year-round</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-house-heart-fill"></i></div>
+                            <h3 class="program-card-title">Community Kitchens</h3>
+                            <p class="program-card-text">Safe, welcoming spaces where volunteers cook and serve
+                                thousands of meals weekly — the heartbeat of our mission.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/ChildNutrition-compressed.jpg"
+                                class="program-card-img" alt="Child Nutrition" />
+                            <span class="program-tag-badge">Priority</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-emoji-smile-fill"></i></div>
+                            <h3 class="program-card-title">Child Nutrition</h3>
+                            <p class="program-card-text">School meal programs and weekend food packs ensuring no child
+                                faces hunger on weekdays or weekends.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Child Welfare Card 1 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/ChildProtection-compressed.jpg"
+                                class="program-card-img" alt="Child Protection" />
+                            <span class="program-tag-badge">Care</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-shield-fill"></i></div>
+                            <h3 class="program-card-title">Child Protection</h3>
+                            <p class="program-card-text">Legal aid, counseling and safe spaces to shield vulnerable
+                                children from abuse and neglect.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Child Welfare Card 2 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/OrphanSupport-compressed.jpg"
+                                class="program-card-img" alt="Orphan Support" />
+                            <span class="program-tag-badge">Support</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-house-fill"></i></div>
+                            <h3 class="program-card-title">Orphan Support</h3>
+                            <p class="program-card-text">Long-term sponsorship, education support and family-style care
+                                for children without a stable home.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Child Welfare Card 3 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/ShelterHomes-compressed.jpg"
+                                class="program-card-img" alt="Shelter Homes" />
+                            <span class="program-tag-badge">Shelter</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-door-open-fill"></i></div>
+                            <h3 class="program-card-title">Shelter Homes</h3>
+                            <p class="program-card-text">Safe homes, counseling and health support for children in need
+                                of a stable, nurturing environment.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Child Welfare Card 4 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="700">
+                    <div class="program-card">
+                        <div class="program-card-img-wrap">
+                            <img src="./img/ChildEducation-compressed.jpg"
+                                class="program-card-img" alt="Child Education" />
+                            <span class="program-tag-badge">Learn</span>
+                        </div>
+                        <div class="program-card-body">
+                            <div class="program-card-icon"><i class="bi bi-book-half"></i></div>
+                            <h3 class="program-card-title">Child Education</h3>
+                            <p class="program-card-text">After-school tutoring, school supplies and scholarships for
+                                children to build brighter futures.</p>
+                            <a href="#" class="program-card-link">Learn More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ IMPACT STATS ═══════════════════════════════ -->
+    <section id="impact" style="padding:80px 0;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag" style="background:rgba(255,255,255,0.15);color:#fff;">Our Impact</span>
+                <h2 class="section-title text-white mt-2">Numbers That <span style="color:rgba(255,255,255,0.6)">Tell
+                        the Story</span></h2>
+            </div>
+            <div class="row row-cols-2 row-cols-md-4 g-4 justify-content-center text-center">
+                <div class="col" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="bi bi-cup-hot-fill"></i></div>
+                        <div class="stat-card-num counter" data-target="12000000">0</div>
+                        <div class="stat-card-label">Meals Served</div>
+                    </div>
+                </div>
+                <div class="col" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="bi bi-people-fill"></i></div>
+                        <div class="stat-card-num counter" data-target="28000">0</div>
+                        <div class="stat-card-label">Active Volunteers</div>
+                    </div>
+                </div>
+                <div class="col" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="bi bi-house-heart-fill"></i></div>
+                        <div class="stat-card-num counter" data-target="340">0</div>
+                        <div class="stat-card-label">Kitchens Running</div>
+                    </div>
+                </div>
+                <div class="col" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div class="stat-card-num counter" data-target="82">0</div>
+                        <div class="stat-card-label">Cities Covered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ DONATE ═══════════════════════════════ -->
+    <section id="donate">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">Make a Difference</span>
+                <h2 class="section-title mt-1">Your Donation <span class="accent">Feeds Hope</span></h2>
+                <p class="section-lead mx-auto mt-3">Every rupee you give goes directly to providing nutritious meals to
+                    those who need it most.</p>
+            </div>
+            <div class="row g-4 align-items-stretch">
+                <!-- Donation Form -->
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="900">
+                    <div class="donate-card">
+                        <h3
+                            style="font-family:'Playfair Display',serif;font-weight:800;color:var(--brown);margin-bottom:6px;">
+                            Give a Meal Today</h3>
+                        <p style="color:var(--text-soft);font-size:0.9rem;margin-bottom:28px;">₹50 feeds a child for a
+                            day • ₹500 feeds a family for a week</p>
+                        <div class="row g-3 mb-4">
+                            <div class="col-6 col-md-3">
+                                <button class="amount-btn active" onclick="selectAmount(this, 50)">₹50</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="amount-btn" onclick="selectAmount(this, 200)">₹200</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="amount-btn" onclick="selectAmount(this, 500)">₹500</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <button class="amount-btn" onclick="selectAmount(this, 1000)">₹1000</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" id="customAmount" class="donate-input"
+                                placeholder="Or enter custom amount (₹)" />
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="donate-input" placeholder="Your full name" />
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" class="donate-input" placeholder="Email address" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label
+                                style="font-size:0.82rem;font-weight:700;color:var(--brown);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:block;">Donate
+                                toward:</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge rounded-pill px-3 py-2"
+                                    style="background:var(--orange);color:#fff;cursor:pointer;font-size:0.78rem;">Free
+                                    Meals</span>
+                                <span class="badge rounded-pill px-3 py-2"
+                                    style="background:var(--orange-pale);color:var(--orange-dark);cursor:pointer;font-size:0.78rem;">Kitchen
+                                    Supply</span>
+                                <span class="badge rounded-pill px-3 py-2"
+                                    style="background:var(--orange-pale);color:var(--orange-dark);cursor:pointer;font-size:0.78rem;">Child
+                                    Nutrition</span>
+                                <span class="badge rounded-pill px-3 py-2"
+                                    style="background:var(--orange-pale);color:var(--orange-dark);cursor:pointer;font-size:0.78rem;">Where
+                                    Needed</span>
+                            </div>
+                        </div>
+
+                        <button class="btn-donate-main">
+                            <i class="bi bi-heart-fill me-2"></i>Donate Now — Make an Impact
+                        </button>
+                        <div class="donate-trust">
+                            <i class="bi bi-shield-fill-check text-orange"></i>
+                            100% Secure & Transparent • Tax Deductible under 80G
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story + Meter -->
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+                    <div class="donate-story">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=200&q=80"
+                            class="story-img" alt="Priya" />
+                        <blockquote class="story-quote">
+                            "Before FeedNation opened a kitchen near our slum, my children would sometimes go to bed
+                            hungry. Now they eat a warm meal every single evening."
+                        </blockquote>
+                        <p class="story-name">Priya Devi</p>
+                        <p class="story-role">Mother of 3 — Delhi, India</p>
+
+                        <div class="meals-counter">
+                            <div>
+                                <div class="meals-counter-num" id="liveMeals">24,681</div>
+                                <div class="meals-counter-txt">Meals served<br /><strong
+                                        style="color:rgba(255,255,255,0.7)">today</strong></div>
+                            </div>
+                            <div style="width:1px;height:50px;background:rgba(255,255,255,0.15)"></div>
+                            <div style="flex:1">
+                                <div
+                                    style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">
+                                    Monthly Goal Progress</div>
+                                <div
+                                    style="height:8px;background:rgba(255,255,255,0.1);border-radius:50px;overflow:hidden;">
+                                    <div id="goalBar"
+                                        style="height:100%;width:0%;background:linear-gradient(90deg,var(--orange),var(--orange-light));border-radius:50px;transition:width 2s ease;">
+                                    </div>
+                                </div>
+                                <div
+                                    style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.75rem;color:rgba(255,255,255,0.5);">
+                                    <span>₹8.4L raised</span><span>Goal: ₹12L</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Impact breakdown -->
+                        <div class="mt-4 row g-2">
+                            <div class="col-6">
+                                <div
+                                    style="background:rgba(255,255,255,0.06);border-radius:14px;padding:16px;text-align:center;">
+                                    <div
+                                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange-light);">
+                                        ₹50</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Feeds 1 child/day</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div
+                                    style="background:rgba(255,255,255,0.06);border-radius:14px;padding:16px;text-align:center;">
+                                    <div
+                                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange-light);">
+                                        ₹500</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Feeds a family/week
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div
+                                    style="background:rgba(255,255,255,0.06);border-radius:14px;padding:16px;text-align:center;">
+                                    <div
+                                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange-light);">
+                                        ₹2K</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Stocks a pantry</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div
+                                    style="background:rgba(255,255,255,0.06);border-radius:14px;padding:16px;text-align:center;">
+                                    <div
+                                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--orange-light);">
+                                        ₹10K</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Runs a kitchen/day</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ TESTIMONIALS ═══════════════════════════════ -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">Real Stories</span>
+                <h2 class="section-title mt-1">Voices of <span class="accent">Change</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"Volunteering at FeedNation's kitchen every Saturday has changed my
+                            perspective on life. The smiles we receive are priceless."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80"
+                                class="testi-avatar" alt="Rahul" />
+                            <div>
+                                <div class="testi-name">Rahul Sharma</div>
+                                <div class="testi-role">Weekend Volunteer, Mumbai</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"We donated our restaurant's surplus food for three months. FeedNation
+                            made it effortless — and the impact was immediate and real."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80"
+                                class="testi-avatar" alt="Anjali" />
+                            <div>
+                                <div class="testi-name">Anjali Mehta</div>
+                                <div class="testi-role">Restaurant Owner, Bengaluru</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"My son was part of the school meal program. Without it, I honestly don't
+                            know how we would have survived that year. God bless them."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&q=80"
+                                class="testi-avatar" alt="Sunita" />
+                            <div>
+                                <div class="testi-name">Sunita Bai</div>
+                                <div class="testi-role">Parent Beneficiary, Jaipur</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ SOCIAL BUZZ ═══════════════════════════════ -->
+    <section id="social-media" style="background:var(--brown); padding: 100px 0;">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag" style="background:rgba(242, 96, 26, 0.15); color:var(--orange-light);">Community Impact</span>
+                <h2 class="section-title text-white mt-1">Live from <span class="accent">Social Media</span></h2>
+                <p class="section-lead text-white-50 mx-auto mt-3">
+                    Our movement is powered by people. See real stories shared by our volunteers, donors, and partners across the globe.
+                </p>
+            </div>
+        </div>
+
+        <div class="social-marquee">
+            <div class="social-marquee-track">
+                <!-- Post 1 (Instagram Style) -->
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/women/63.jpg" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">Neha Sahu</div>
+                            <div class="post-platform"><i class="bi bi-instagram text-danger"></i> Instagram</div>
+                        </div>
+                    </div>
+                    <img src="./img/ran11.jpg" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">Spending my weekend at the Delhi kitchen was the most rewarding experience. 1200 meals served today! #FeedNation #Volunteer</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-heart-fill"></i> 2.4k</span>
+                            <span><i class="bi bi-chat-fill"></i> 156</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 2 (Facebook Style) -->
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/women/71.jpg" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">Anisha Desai</div>
+                            <div class="post-platform"><i class="bi bi-facebook text-primary"></i> Facebook</div>
+                        </div>
+                    </div>
+                    <img src="./img/ran10.jpg" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">So proud to partner with FeedNation Foundation. Our surplus food now finds a home with those who need it most. Together we can end hunger. 🧡</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-hand-thumbs-up-fill"></i> 842</span>
+                            <span><i class="bi bi-share-fill"></i> 42</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 3 (Instagram Style) -->
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/77.jpg" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">@rahul_clicks</div>
+                            <div class="post-platform"><i class="bi bi-instagram text-danger"></i> Instagram</div>
+                        </div>
+                    </div>
+                    <img src="./img/ran9.jpg" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">The smiles on these faces are worth more than any paycheck. Join the movement. #ZeroHunger #NGOIndia</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-heart-fill"></i> 1.8k</span>
+                            <span><i class="bi bi-chat-fill"></i> 89</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post 4 (Twitter/X Style) -->
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">@GreenEarth_Org</div>
+                            <div class="post-platform"><i class="bi bi-twitter-x text-dark"></i> Twitter</div>
+                        </div>
+                    </div>
+                    <img src="./img/ran8.jpg" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">Reduced 200kg of food waste this week thanks to FeedNation's logistics. This is how sustainability meets humanity. 🌍</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-repeat"></i> 124</span>
+                            <span><i class="bi bi-heart-fill"></i> 562</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicate for seamless scroll -->
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">@humanity_first</div>
+                            <div class="post-platform"><i class="bi bi-instagram text-danger"></i> Instagram</div>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">Spending my weekend at the Delhi kitchen was the most rewarding experience. 1200 meals served today! #FeedNation #Volunteer</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-heart-fill"></i> 2.4k</span>
+                            <span><i class="bi bi-chat-fill"></i> 156</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">Anita Desai</div>
+                            <div class="post-platform"><i class="bi bi-facebook text-primary"></i> Facebook</div>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=600&q=80" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">So proud to partner with FeedNation Foundation. Our surplus food now finds a home with those who need it most. Together we can end hunger. 🧡</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-hand-thumbs-up-fill"></i> 842</span>
+                            <span><i class="bi bi-share-fill"></i> 42</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">@sayan_clicks</div>
+                            <div class="post-platform"><i class="bi bi-instagram text-danger"></i> Instagram</div>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?w=600&q=80" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">The smiles on these faces are worth more than any paycheck. Join the movement. #ZeroHunger #NGOIndia</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-heart-fill"></i> 1.8k</span>
+                            <span><i class="bi bi-chat-fill"></i> 89</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-post-card">
+                    <div class="post-header">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" class="post-user-img" alt="User" />
+                        <div class="post-user-info">
+                            <div class="post-user-name">@GreenEarth_Org</div>
+                            <div class="post-platform"><i class="bi bi-twitter-x text-dark"></i> Twitter</div>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&q=80" class="post-img" alt="Service" />
+                    <div class="post-content">
+                        <p class="post-caption">Reduced 200kg of food waste this week thanks to FeedNation's logistics. This is how sustainability meets humanity. 🌍</p>
+                        <div class="post-stats">
+                            <span><i class="bi bi-repeat"></i> 124</span>
+                            <span><i class="bi bi-heart-fill"></i> 562</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ GALLERY ═══════════════════════════════ -->
+    <section id="gallery">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">Our Work in Pictures</span>
+                <h2 class="section-title mt-1">Moments of <span class="accent">Impact</span></h2>
+                <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;margin-top:10px;">Every photo is a story of
+                    hope, resilience, and community.</p>
+            </div>
+            <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
+                <!-- Large featured -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80"
+                        class="gallery-img" alt="Volunteers serving food" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Volunteers in Action</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&q=80"
+                        class="gallery-img" alt="Food prep" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Fresh Food Preparation</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./img/FreeDailyMeals-compressed.jpg" class="gallery-img"
+                        alt="Community meal" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Community Meal Distribution</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./img/ran12.jpg"
+                        class="gallery-img" alt="Volunteer team" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Our Volunteer Heroes</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=500&q=80"
+                        class="gallery-img" alt="Donation drive" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Food Donation Drive</div>
+                    </div>
+                </div>
+                <!-- Wide -->
+                <div class="gallery-item">
+                    <img src="./img/CommunityKitchens-compressed.jpg"
+                        class="gallery-img" alt="Cooking" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Cooking for Thousands</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./img/foodDonation-compressed.jpg"
+                        class="gallery-img" alt="Food pack" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Food Donation With Love</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./img/ChildNutrition-compressed.jpg" class="gallery-img"
+                        alt="Kids eating" />
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption"><i class="bi bi-camera me-1"></i>Happy Children</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ TEAM SECTION ═══════════════════════════════ -->
+    <section id="team">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">Our Leadership</span>
+                <h2 class="section-title mt-1">Hearts Behind the <span class="accent">Mission</span></h2>
+                <p class="section-lead mx-auto mt-3">Dedicated individuals working tirelessly to ensure a hunger-free future for every child.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Founder -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="./img/ran1.jpg" class="team-img" alt="Founder" />
+                        </div>
+                        <h4 class="team-name">Dr. Vikram Seth</h4>
+                        <div class="team-role">Founder & Chairman</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Co-Founder -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" class="team-img" alt="Co-Founder" />
+                        </div>
+                        <h4 class="team-name">Meera Singhania</h4>
+                        <div class="team-role">Co-Founder & CEO</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 3 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Arjun Kapoor</h4>
+                        <div class="team-role">Director of Operations</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 4 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Dr. Anjali Rao</h4>
+                        <div class="team-role">Head of Nutrition</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-envelope-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 5 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Siddharth Malhotra</h4>
+                        <div class="team-role">National Outreach Manager</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 6 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Pooja Sharma</h4>
+                        <div class="team-role">Volunteer Coordinator</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 7 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Kabir Ahmed</h4>
+                        <div class="team-role">Logistics Manager</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 8 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="./img/ran2.jpg" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Nisha Varma</h4>
+                        <div class="team-role">Fundraising Lead</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 9 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="./img/ran4.jpg" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Neha Gupta</h4>
+                        <div class="team-role">Digital Operations Lead</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 10 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Zara Khan</h4>
+                        <div class="team-role">Communications</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 11 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Amitabh Roy</h4>
+                        <div class="team-role">Legal Counsel</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-shield-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 12 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Divya Patel</h4>
+                        <div class="team-role">Community Relations</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 13 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Sahil Vats</h4>
+                        <div class="team-role">Audit & Compliance</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-file-earmark-check-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 14 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Kavita Reddy</h4>
+                        <div class="team-role">Learning & Development Lead</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-book-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 15 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Yash Chhabra</h4>
+                        <div class="team-role">Strategic Partnerships</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team 16 -->
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?w=400&q=80" class="team-img" alt="Team" />
+                        </div>
+                        <h4 class="team-name">Sneha Bansal</h4>
+                        <div class="team-role">Media Relations</div>
+                        <div class="team-social">
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-camera-reels-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ VOLUNTEER ═══════════════════════════════ -->
+    <section id="volunteer">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-tag">Get Involved</span>
+                <h2 class="section-title mt-1">Join Our <span class="accent">Team</span></h2>
+                <p class="section-lead mx-auto mt-3">Whether you have an hour or a year to give, there's a place for you
+                    in FeedNation's mission.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
+                    <div class="volunteer-card">
+                        <div class="volunteer-icon"><i class="bi bi-person-heart"></i></div>
+                        <div class="volunteer-title">Kitchen Volunteer</div>
+                        <p class="volunteer-text">Help us cook and serve warm meals at one of our 340+ community
+                            kitchens. No experience required — just heart.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="volunteer-card">
+                        <div class="volunteer-icon"><i class="bi bi-truck-front-fill"></i></div>
+                        <div class="volunteer-title">Food Delivery</div>
+                        <p class="volunteer-text">Drive or walk meals to elderly, homebound, or mobility-challenged
+                            community members who can't come to us.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="volunteer-card">
+                        <div class="volunteer-icon"><i class="bi bi-megaphone-fill"></i></div>
+                        <div class="volunteer-title">Awareness Campaigns</div>
+                        <p class="volunteer-text">Use your voice and social reach to spread our message, organize
+                            drives, and build community awareness.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="volunteer-card">
+                        <div class="volunteer-icon"><i class="bi bi-laptop-fill"></i></div>
+                        <div class="volunteer-title">Digital Support</div>
+                        <p class="volunteer-text">Contribute your skills in design, tech, photography, or writing to
+                            help our mission grow online.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+                <a href="#" class="btn-hero-primary text-decoration-none d-inline-flex align-items-center gap-2"
+                    style="font-size:1rem;">
+                    <i class="bi bi-person-plus-fill"></i> Sign Up to Volunteer
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ PARTNERS ═══════════════════════════════ -->
+    <section id="partners">
+        <div class="container">
+            <div class="text-center mb-4" data-aos="fade-up">
+                <p
+                    style="font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-soft);font-weight:700;">
+                    Trusted By & Partnered With</p>
+            </div>
+            <div class="partners-track">
+                <!-- Group 1 -->
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="partner-logo" alt="Spotify" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="partner-logo" alt="Amazon" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tata_logo.svg" class="partner-logo" alt="Tata" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Zomato-logo.png" class="partner-logo" alt="Zomato" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="partner-logo" alt="Microsoft" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://cdn.worldvectorlogo.com/logos/google-2015.svg" class="partner-logo" alt="Google" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="partner-logo" alt="Apple" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="partner-logo" alt="IBM" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="partner-logo" alt="Netflix" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" class="partner-logo" alt="Adidas" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="partner-logo" alt="Meta" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Ebay_logo.svg" class="partner-logo" alt="eBay" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/PricewaterhouseCoopers_Logo.svg" class="partner-logo" alt="PwC" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Intel_logo_%282020%2C_light_blue%29.svg" class="partner-logo" alt="Intel" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" class="partner-logo" alt="Samsung" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" class="partner-logo" alt="Tesla" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg" class="partner-logo" alt="Accenture" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Airbnb_Logo_2014.png" class="partner-logo" alt="Airbnb" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" class="partner-logo" alt="Uber" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" class="partner-logo" alt="Salesforce" />
+                </div>
+
+                <!-- Group 2 (Duplicate for Infinite Scroll) -->
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" class="partner-logo" alt="Spotify" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="partner-logo" alt="Amazon" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tata_logo.svg" class="partner-logo" alt="Tata" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/b/b9/Zomato-logo.png" class="partner-logo" alt="Zomato" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="partner-logo" alt="Microsoft" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://cdn.worldvectorlogo.com/logos/google-2015.svg" class="partner-logo" alt="Google" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="partner-logo" alt="Apple" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" class="partner-logo" alt="IBM" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="partner-logo" alt="Netflix" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" class="partner-logo" alt="Adidas" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="partner-logo" alt="Meta" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Ebay_logo.svg" class="partner-logo" alt="eBay" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/PricewaterhouseCoopers_Logo.svg" class="partner-logo" alt="PwC" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Intel_logo_%282020%2C_light_blue%29.svg" class="partner-logo" alt="Intel" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" class="partner-logo" alt="Samsung" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" class="partner-logo" alt="Tesla" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg" class="partner-logo" alt="Accenture" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Belo.svg" class="partner-logo" alt="Airbnb" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Uber_logo_2018.svg" class="partner-logo" alt="Uber" />
+                </div>
+                <div class="partner-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg" class="partner-logo" alt="Salesforce" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ NEWSLETTER ═══════════════════════════════ -->
+    <section id="newsletter">
+        <div class="container text-center" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <span class="section-tag" style="background:rgba(255,255,255,0.15);color:#fff;">Stay
+                        Connected</span>
+                    <h2 class="newsletter-title mt-2">Join 50,000+ People<br />Fighting Hunger</h2>
+                    <p class="newsletter-sub">Get stories of impact, volunteer opportunities, and campaign updates in
+                        your inbox.</p>
+                    <div class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address" />
+                        <button class="newsletter-btn">Subscribe <i class="bi bi-arrow-right ms-1"></i></button>
+                    </div>
+                    <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:14px;">No spam. Unsubscribe
+                        anytime. We respect your privacy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <!-- Column 1: Brand -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <span class="footer-brand">🌾 FeedNation</span>
+                    <p class="footer-desc mt-3">Fighting hunger, building dignity, and feeding hope — one meal at a time.
+                        Join us in making sure no one goes to bed hungry.</p>
+                    <div class="footer-social mt-4">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Links -->
+                <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
+                    <div class="footer-heading">Quick Links</div>
+                    <ul class="footer-links mt-4">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#programs">Our Programs</a></li>
+                        <li><a href="#impact">Our Impact</a></li>
+                        <li><a href="#volunteer">Volunteer</a></li>
+                        <li><a href="#donate">Donate Now</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Programs -->
+                <div class="col-lg-2 col-md-6 col-6 mb-4 mb-lg-0">
+                    <div class="footer-heading">Programs</div>
+                    <ul class="footer-links mt-4">
+                        <li><a href="#">Free Meals</a></li>
+                        <li><a href="#">Food Drives</a></li>
+                        <li><a href="#">Child Nutrition</a></li>
+                        <li><a href="#">Orphan Support</a></li>
+                        <li><a href="#">Shelter Homes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Reach Us -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <div class="footer-heading">Reach Us</div>
+                    <div class="mt-4">
+                        <div class="footer-contact-item">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>42 Seva Marg, New Delhi 110001</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <span>+91 11 4567 8901</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span>hello@feednation.org</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 5: Legal & More -->
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-heading">Support</div>
+                    <div class="mt-4">
+                        <div class="footer-contact-item">
+                            <i class="bi bi-phone-vibrate-fill"></i>
+                            <span>Emergency: 98765 43210</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-clock-fill"></i>
+                            <span>Mon–Sat: 8AM–8PM</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="bi bi-award-fill"></i>
+                            <span>Certified 80G+ NGO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="footer-divider" />
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="footer-bottom mb-md-0">© 2025 FeedNation Foundation. All rights reserved. Reg. No. NGO-DL-2012-04521</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="footer-bottom mb-0">
+                        <a href="#">Privacy Policy</a> &nbsp;•&nbsp;
+                        <a href="#">Terms of Use</a> &nbsp;•&nbsp;
+                        <a href="#">80G Certificate</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        // ── AOS Init ──
+        AOS.init({ once: true, offset: 60, easing: 'ease-out-cubic' });
+
+        // ── Navbar scroll ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+            document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+        });
+
+        // ── Hero Carousel ──
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-dot');
+        let current = 0, timer;
+
+        function goToSlide(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function autoPlay() {
+            timer = setInterval(() => goToSlide(current + 1), 5000);
+        }
+
+        dots.forEach(d => d.addEventListener('click', () => {
+            clearInterval(timer);
+            goToSlide(+d.dataset.index);
+            autoPlay();
+        }));
+
+        autoPlay();
+
+        // ── Donation amount buttons ──
+        function selectAmount(btn, val) {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('customAmount').value = val;
+        }
+
+        // ── Counter animation ──
+        function formatNum(n) {
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M+';
+            if (n >= 1000) return (n / 1000).toFixed(0) + 'K+';
+            return n + '+';
+        }
+
+        const counters = document.querySelectorAll('.counter');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = +el.dataset.target;
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    const interval = setInterval(() => {
+                        current = Math.min(current + step, target);
+                        el.textContent = formatNum(Math.floor(current));
+                        if (current >= target) clearInterval(interval);
+                    }, 16);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(c => observer.observe(c));
+
+        // ── Goal bar animation ──
+        const goalBarObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        document.getElementById('goalBar').style.width = '70%';
+                    }, 600);
+                    goalBarObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const donateSection = document.getElementById('donate');
+        if (donateSection) goalBarObserver.observe(donateSection);
+
+        // ── Live meals counter (simulated) ──
+        let mealsBase = 24681;
+        setInterval(() => {
+            mealsBase += Math.floor(Math.random() * 3);
+            document.getElementById('liveMeals').textContent = mealsBase.toLocaleString('en-IN');
+        }, 3200);
+
+        // ── Smooth nav link scrolling ──
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // close mobile menu
+                    const collapse = document.getElementById('navMenu');
+                    if (collapse.classList.contains('show')) {
+                        bootstrap.Collapse.getInstance(collapse)?.hide();
+                    }
+                }
+            });
+        });
+
+        // ── Gallery badge hover ──
+        document.querySelectorAll('.badge[style*="cursor"]').forEach(badge => {
+            badge.addEventListener('click', function () {
+                document.querySelectorAll('.badge[style*="cursor"]').forEach(b => {
+                    b.style.background = 'var(--orange-pale)';
+                    b.style.color = 'var(--orange-dark)';
+                });
+                this.style.background = 'var(--orange)';
+                this.style.color = '#fff';
+            });
+        });
+    </script>
+</body>
+
+</html>
